@@ -11,12 +11,13 @@ import BDBOAuth1Manager
 
 class LoginViewController: UIViewController {
     @IBAction func onLogin(sender: AnyObject) {
+        
         TwitterClient
             .sharedInstance
             .fetchRequestTokenWithPath(
                 "oauth/request_token",
                 method: "GET",
-                callbackURL: NSURL(string: "cptwitterdemo://oauth"),
+                callbackURL: NSURL(string: "cpdtwitterdemo://oauth"),
                 scope: nil,
                 success: { (requestToken: BDBOAuth1Credential!) -> Void in
                     
@@ -26,9 +27,7 @@ class LoginViewController: UIViewController {
                     UIApplication.sharedApplication().openURL(authURL!)
                     
                 }, failure: { (error: NSError!) -> Void in
-                    
                     NSLog("Failed to get request token: \(error)")
-                    
                 })
     }
 }

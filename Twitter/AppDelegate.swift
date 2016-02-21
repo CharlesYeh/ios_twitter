@@ -55,7 +55,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     TwitterClient.sharedInstance.GET("1.1/account/verify_credentials.json", parameters: nil,
                         success: { (operation: NSURLSessionDataTask!, response: AnyObject!) -> Void in
                             
-                            NSLog("user: \(response)")
+                            NSLog("Loaded user")
+                            let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
+                            let nc = mainStoryboard.instantiateViewControllerWithIdentifier("timelineNavController") as! UINavigationController
+                            let vc = nc.topViewController as! TimelineViewController
+                            
+                            vc.user(response)
+                            
+                            self.window?.rootViewController?.presentViewController(nc, animated: true, completion: nil)
                         }, failure: { (operation: NSURLSessionDataTask?, error: NSError) -> Void in
                             NSLog("Failed to get current user")
                         })

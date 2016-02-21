@@ -8,12 +8,16 @@
 
 /* Begin PBXBuildFile section */
 		725582C71C72D0DC005E8D08 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 725582C61C72D0DC005E8D08 /* AppDelegate.swift */; };
-		725582C91C72D0DC005E8D08 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 725582C81C72D0DC005E8D08 /* ViewController.swift */; };
 		725582CC1C72D0DC005E8D08 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 725582CA1C72D0DC005E8D08 /* Main.storyboard */; };
 		725582CE1C72D0DC005E8D08 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 725582CD1C72D0DC005E8D08 /* Assets.xcassets */; };
 		725582D11C72D0DC005E8D08 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 725582CF1C72D0DC005E8D08 /* LaunchScreen.storyboard */; };
 		725582DC1C72D0DC005E8D08 /* TwitterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 725582DB1C72D0DC005E8D08 /* TwitterTests.swift */; };
 		725582E71C72D0DC005E8D08 /* TwitterUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 725582E61C72D0DC005E8D08 /* TwitterUITests.swift */; };
+		72B362E31C78EC0500A6CFDD /* TimelineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72B362E21C78EC0500A6CFDD /* TimelineViewController.swift */; };
+		72B362E51C78F0B300A6CFDD /* TimelineDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72B362E41C78F0B300A6CFDD /* TimelineDelegate.swift */; };
+		72B362E71C78F21C00A6CFDD /* TimelineCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72B362E61C78F21C00A6CFDD /* TimelineCell.swift */; };
+		72B362E91C79407A00A6CFDD /* Tweet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72B362E81C79407A00A6CFDD /* Tweet.swift */; };
+		72B362EB1C7940B900A6CFDD /* TwitterUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72B362EA1C7940B900A6CFDD /* TwitterUser.swift */; };
 		72DA1DDA1C75C0D30004F209 /* TwitterClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72DA1DD91C75C0D30004F209 /* TwitterClient.swift */; };
 		72DA1DDD1C75C3130004F209 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72DA1DDC1C75C3130004F209 /* LoginViewController.swift */; };
 		764F5D98F3041F5C3860E929 /* Pods_Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7E74F33E1318D9DD81F514C /* Pods_Twitter.framework */; };
@@ -40,7 +44,6 @@
 		5FBBDF44474828CE4D3EA864 /* Pods-Twitter.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Twitter.release.xcconfig"; path = "Pods/Target Support Files/Pods-Twitter/Pods-Twitter.release.xcconfig"; sourceTree = "<group>"; };
 		725582C31C72D0DC005E8D08 /* Twitter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Twitter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		725582C61C72D0DC005E8D08 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		725582C81C72D0DC005E8D08 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		725582CB1C72D0DC005E8D08 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		725582CD1C72D0DC005E8D08 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		725582D01C72D0DC005E8D08 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -51,6 +54,11 @@
 		725582E21C72D0DC005E8D08 /* TwitterUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TwitterUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		725582E61C72D0DC005E8D08 /* TwitterUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwitterUITests.swift; sourceTree = "<group>"; };
 		725582E81C72D0DC005E8D08 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		72B362E21C78EC0500A6CFDD /* TimelineViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimelineViewController.swift; sourceTree = "<group>"; };
+		72B362E41C78F0B300A6CFDD /* TimelineDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimelineDelegate.swift; sourceTree = "<group>"; };
+		72B362E61C78F21C00A6CFDD /* TimelineCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimelineCell.swift; sourceTree = "<group>"; };
+		72B362E81C79407A00A6CFDD /* Tweet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tweet.swift; sourceTree = "<group>"; };
+		72B362EA1C7940B900A6CFDD /* TwitterUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwitterUser.swift; sourceTree = "<group>"; };
 		72DA1DD91C75C0D30004F209 /* TwitterClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwitterClient.swift; sourceTree = "<group>"; };
 		72DA1DDC1C75C3130004F209 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		B8BA380082E41A77227495A7 /* Pods-Twitter.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Twitter.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Twitter/Pods-Twitter.debug.xcconfig"; sourceTree = "<group>"; };
@@ -127,12 +135,16 @@
 			children = (
 				72DA1DDB1C75C1C20004F209 /* API */,
 				725582C61C72D0DC005E8D08 /* AppDelegate.swift */,
-				725582C81C72D0DC005E8D08 /* ViewController.swift */,
+				72B362E21C78EC0500A6CFDD /* TimelineViewController.swift */,
+				72B362E61C78F21C00A6CFDD /* TimelineCell.swift */,
+				72B362E41C78F0B300A6CFDD /* TimelineDelegate.swift */,
 				72DA1DDC1C75C3130004F209 /* LoginViewController.swift */,
 				725582CA1C72D0DC005E8D08 /* Main.storyboard */,
 				725582CD1C72D0DC005E8D08 /* Assets.xcassets */,
 				725582CF1C72D0DC005E8D08 /* LaunchScreen.storyboard */,
 				725582D21C72D0DC005E8D08 /* Info.plist */,
+				72B362E81C79407A00A6CFDD /* Tweet.swift */,
+				72B362EA1C7940B900A6CFDD /* TwitterUser.swift */,
 			);
 			path = Twitter;
 			sourceTree = "<group>";
@@ -345,10 +357,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				72B362E71C78F21C00A6CFDD /* TimelineCell.swift in Sources */,
 				72DA1DDD1C75C3130004F209 /* LoginViewController.swift in Sources */,
-				725582C91C72D0DC005E8D08 /* ViewController.swift in Sources */,
 				72DA1DDA1C75C0D30004F209 /* TwitterClient.swift in Sources */,
+				72B362E91C79407A00A6CFDD /* Tweet.swift in Sources */,
 				725582C71C72D0DC005E8D08 /* AppDelegate.swift in Sources */,
+				72B362E51C78F0B300A6CFDD /* TimelineDelegate.swift in Sources */,
+				72B362EB1C7940B900A6CFDD /* TwitterUser.swift in Sources */,
+				72B362E31C78EC0500A6CFDD /* TimelineViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -493,7 +509,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = Twitter/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = na.Twitter;
+				PRODUCT_BUNDLE_IDENTIFIER = com.teamslice.Twitter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -505,7 +521,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = Twitter/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = na.Twitter;
+				PRODUCT_BUNDLE_IDENTIFIER = com.teamslice.Twitter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
