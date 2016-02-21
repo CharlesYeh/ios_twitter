@@ -18,6 +18,9 @@ class TimelineDelegate: NSObject, UITableViewDelegate, UITableViewDataSource {
         if let tweet = tweets?[indexPath.row] {
             if tweet.retweeted {
                 cell.retweetedLabel.text = "() retweeted"
+            } else {
+                cell.retweetImageView.hidden = true
+                cell.retweetedLabel.hidden = true
             }
             cell.nameLabel.text = tweet.user.name
             cell.screenNameLabel.text = "@\(tweet.user.screenName)"

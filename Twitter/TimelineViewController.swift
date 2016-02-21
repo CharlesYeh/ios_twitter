@@ -21,6 +21,15 @@ class TimelineViewController: UIViewController {
     // models
     var user: TwitterUser?
     
+    @IBAction func onSignOutClick(sender: AnyObject) {
+        signOut()
+        
+    }
+    
+    func signOut() {
+        
+    }
+    
     func user(apiResponse: AnyObject) {
         self.user = TwitterUser(fromAPIResponse: apiResponse)
     }

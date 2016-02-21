@@ -10,11 +10,12 @@ import UIKit
 
 class TimelineCell: UITableViewCell {
     
-    @IBOutlet weak var retweetedLabel: UILabel!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var screenNameLabel: UILabel!
     @IBOutlet weak var tweetLabel: UILabel!
     @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var dateLabel: UILabel!
     
+    @IBOutlet weak var retweetImageView: UIImageView!
+    @IBOutlet weak var retweetedLabel: UILabel!
 }
