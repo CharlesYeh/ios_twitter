@@ -65,6 +65,7 @@ class TimelineViewController: UIViewController {
         
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: "loadData", forControlEvents: UIControlEvents.ValueChanged)
+        timelineTableView.insertSubview(refreshControl, atIndex: 0)
         
         loadData()
     }
