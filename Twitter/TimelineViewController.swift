@@ -35,7 +35,7 @@ class TimelineViewController: UIViewController {
         self.user = TwitterUser(fromAPIResponse: apiResponse)
     }
     
-    func loadData() {
+    func loadData(refreshControl: UIRefreshControl? = nil) {
         TwitterClient.sharedInstance.GET("1.1/statuses/home_timeline.json", parameters: nil,
             success: { (operation: NSURLSessionDataTask!, response: AnyObject!) -> Void in
                 
@@ -46,6 +46,12 @@ class TimelineViewController: UIViewController {
                     })
                     self.timelineDelegate!.tweets = convertedTweets
                     self.timelineTableView.reloadData()
+                }
+                
+                if let refreshControl = refreshControl {
+                    dispatch_async(dispatch_get_main_queue(), {
+                        refreshControl.endEditing(true)
+                    })
                 }
                 
             }, failure: { (operation: NSURLSessionDataTask?, error: NSError) -> Void in
@@ -60,11 +66,11 @@ class TimelineViewController: UIViewController {
         timelineTableView.delegate = timelineDelegate
         timelineTableView.dataSource = timelineDelegate
         
-        timelineTableView.estimatedRowHeight = 100
+        timelineTableView.estimatedRowHeight = 200
         timelineTableView.rowHeight = UITableViewAutomaticDimension
         
         let refreshControl = UIRefreshControl()
-        refreshControl.addTarget(self, action: "loadData", forControlEvents: UIControlEvents.ValueChanged)
+        refreshControl.addTarget(self, action: "loadData:", forControlEvents: UIControlEvents.ValueChanged)
         timelineTableView.insertSubview(refreshControl, atIndex: 0)
         
         loadData()
