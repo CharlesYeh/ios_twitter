@@ -10,7 +10,12 @@ import UIKit
 
 class TimelineDelegate: NSObject, UITableViewDelegate, UITableViewDataSource {
     
+    var parentViewController: UIViewController?
     var tweets: [Tweet]?
+    
+    init(vc: UIViewController) {
+        parentViewController = vc
+    }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
@@ -27,14 +32,21 @@ class TimelineDelegate: NSObject, UITableViewDelegate, UITableViewDataSource {
             cell.tweetLabel.text = tweet.text
             
             cell.profileImageView.setImageWithURL(
-                NSURL(fileURLWithPath: tweet.user.profileImage))
+                NSURL(string: tweet.user.profileImage)!)
+            
+            cell.replyButtonView.tag = indexPath.row
+            cell.retweetButtonView.tag = indexPath.row
+            cell.likeButtonView.tag = indexPath.row
+            
+            cell.replyButtonView.addGestureRecognizer(UITapGestureRecognizer(target: parentViewController, action: "onReplyButton:"))
+            cell.retweetButtonView.addGestureRecognizer(UITapGestureRecognizer(target: parentViewController, action: "onRetweetButton:"))
+            cell.likeButtonView.addGestureRecognizer(UITapGestureRecognizer(target: parentViewController, action: "onLikeButton:"))
         }
         
         return cell
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
         return tweets?.count ?? 0
     }
 }

@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol TimelineCellActioner {
+    func setActioner()
+}
+
 class TimelineCell: UITableViewCell {
     
     @IBOutlet weak var nameLabel: UILabel!
@@ -18,4 +22,10 @@ class TimelineCell: UITableViewCell {
     
     @IBOutlet weak var retweetImageView: UIImageView!
     @IBOutlet weak var retweetedLabel: UILabel!
+    
+    
+    @IBOutlet weak var replyButtonView: UIImageView!
+    @IBOutlet weak var retweetButtonView: UIImageView!
+    @IBOutlet weak var likeButtonView: UIImageView!
+    
 }
