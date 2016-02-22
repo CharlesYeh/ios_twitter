@@ -17,12 +17,24 @@ class TweetViewController: UIViewController {
     @IBOutlet weak var retweetedImageView: UIImageView!
     @IBOutlet weak var textLabel: UITextView!
     
+    var replyName: String?
+    
     override func viewDidLoad() {
         if let user = TwitterClient.currentUser {
             nameLabel.text = user.name
             screenNameLabel.text = user.screenName
             profileImageView.setImageWithURL(NSURL(string: user.profileImage)!)
         }
+        
+        if let screenName = replyName {
+            textLabel.text = "@\(screenName) "
+        }
+        
+        textLabel.becomeFirstResponder()
+    }
+    
+    func setReply(screenName: String) {
+        replyName = screenName
     }
     
     @IBAction func onTweetClick(sender: AnyObject) {

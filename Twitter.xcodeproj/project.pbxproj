@@ -57,7 +57,7 @@
 		725582E21C72D0DC005E8D08 /* TwitterUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TwitterUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		725582E61C72D0DC005E8D08 /* TwitterUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwitterUITests.swift; sourceTree = "<group>"; };
 		725582E81C72D0DC005E8D08 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		726E76C11C7AC56A007EA56C /* TweetUIModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TweetUIModel.swift; sourceTree = "<group>"; };
+		726E76C11C7AC56A007EA56C /* TweetUIModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TweetUIModel.swift; path = ../TweetUIModel.swift; sourceTree = "<group>"; };
 		72B362E21C78EC0500A6CFDD /* TimelineViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimelineViewController.swift; sourceTree = "<group>"; };
 		72B362E41C78F0B300A6CFDD /* TimelineDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimelineDelegate.swift; sourceTree = "<group>"; };
 		72B362E61C78F21C00A6CFDD /* TimelineCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimelineCell.swift; sourceTree = "<group>"; };
@@ -117,7 +117,6 @@
 		725582BA1C72D0DC005E8D08 = {
 			isa = PBXGroup;
 			children = (
-				726E76C11C7AC56A007EA56C /* TweetUIModel.swift */,
 				725582C51C72D0DC005E8D08 /* Twitter */,
 				725582DA1C72D0DC005E8D08 /* TwitterTests */,
 				725582E51C72D0DC005E8D08 /* TwitterUITests */,
@@ -144,6 +143,7 @@
 				72B362F01C79BA1900A6CFDD /* ViewControllers */,
 				72DA1DDB1C75C1C20004F209 /* API */,
 				725582C61C72D0DC005E8D08 /* AppDelegate.swift */,
+				726E76C11C7AC56A007EA56C /* TweetUIModel.swift */,
 				72B362E61C78F21C00A6CFDD /* TimelineCell.swift */,
 				72B362E41C78F0B300A6CFDD /* TimelineDelegate.swift */,
 				725582CA1C72D0DC005E8D08 /* Main.storyboard */,

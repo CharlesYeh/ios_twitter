@@ -9,8 +9,24 @@
 import UIKit
 
 class TweetUIModel: NSObject {
-    class func onReply(sender: AnyObject) {
+    class func onReply(tweet: Tweet, vc: UIViewController) {
         
+        vc.performSegueWithIdentifier("replySegue", sender: tweet)
+    }
+    
+    class func setButtons(tweet: Tweet, retweetButton: UIButton, favoriteButton: UIButton) {
+        
+        if tweet.retweeted {
+            retweetButton.setImage(UIImage(named: "retweet-action-on"), forState: .Normal)
+        } else {
+            retweetButton.setImage(UIImage(named: "retweet-action"), forState: .Normal)
+        }
+        
+        if tweet.favorited {
+            favoriteButton.setImage(UIImage(named: "like-action-on"), forState: .Normal)
+        } else {
+            favoriteButton.setImage(UIImage(named: "like-action"), forState: .Normal)
+        }
     }
     
     class func onRetweet(sender: AnyObject, tweet: Tweet, button: UIButton) {

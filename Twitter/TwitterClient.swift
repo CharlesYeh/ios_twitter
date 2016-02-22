@@ -130,7 +130,7 @@ class TwitterClient: BDBOAuth1SessionManager {
     
     func unRetweet(tweet: Tweet, completion: () -> Void) {
         let tweetId = tweet.id
-        TwitterClient.sharedInstance.POST("1.1/statuses/unretweets/\(tweetId).json", parameters: nil,
+        TwitterClient.sharedInstance.POST("1.1/statuses/unretweet/\(tweetId).json", parameters: nil,
             success: { (operation: NSURLSessionDataTask!, response: AnyObject!) -> Void in
                 
                 NSLog("Unretweeted")

@@ -18,10 +18,24 @@ class Tweet {
     var retweetCount: Int
     var favoriteCount: Int
     
+    var retweeterName: String?
+    
     var user: TwitterUser
     
     init(fromAPIResponse response: AnyObject) {
-        let tweet = response as! NSDictionary
+        var tweet = response as! NSDictionary
+        
+        if let retweetedStatus = tweet["retweeted_status"] as! NSDictionary? {
+            // get retweeter
+            let retweeterUser = TwitterUser(fromAPIResponse: tweet["user"]!)
+            retweeterName = retweeterUser.name
+            
+            tweet = retweetedStatus
+        } else {
+            retweeterName = nil
+        }
+        
+        user = TwitterUser(fromAPIResponse: tweet["user"]!)
         
         id = "\(tweet["id"]!)"
         retweeted = tweet["retweeted"] as! Bool
@@ -38,9 +52,6 @@ class Tweet {
         
         retweetCount = tweet["retweet_count"] as! Int
         favoriteCount = tweet["favorite_count"] as! Int
-        
-        user = TwitterUser(fromAPIResponse: tweet["user"]!)
-        
     }
     
     func setRetweet(r: Bool) {

@@ -82,6 +82,12 @@ class TimelineViewController: UIViewController {
                 
             } else if segueIdentifier == "tweetSegue" {
                 // new tweet
+            } else if segueIdentifier == "replySegue" {
+                let tweet = sender as! Tweet
+                
+                NSLog("\(segue.destinationViewController)")
+                let vc = segue.destinationViewController as! TweetViewController
+                vc.setReply(tweet.user.screenName)
             }
         }
     }

@@ -27,17 +27,28 @@ class TimelineCell: UITableViewCell {
     @IBOutlet weak var retweetButton: UIButton!
     @IBOutlet weak var favoriteButton: UIButton!
     
-    var tweet: Tweet?
+    var tweetModel: Tweet?
+    var tweet: Tweet? {
+        set(t) {
+            TweetUIModel.setButtons(t!, retweetButton: retweetButton, favoriteButton: favoriteButton)
+            tweetModel = t
+        }
+        get {
+            return tweetModel
+        }
+    }
+    
+    var replyDelegate: UIViewController?
     
     @IBAction func onReply(sender: AnyObject) {
-        
+        TweetUIModel.onReply(tweet!, vc: replyDelegate!)
     }
     
     @IBAction func onRetweet(sender: AnyObject) {
-        
+        TweetUIModel.onRetweet(sender, tweet: self.tweet!, button: retweetButton)
     }
     
     @IBAction func onFavorite(sender: AnyObject) {
-        
+        TweetUIModel.onFavorite(sender, tweet: self.tweet!, button: favoriteButton)
     }
 }

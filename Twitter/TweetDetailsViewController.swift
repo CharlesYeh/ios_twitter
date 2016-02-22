@@ -30,7 +30,11 @@ class TweetDetailsViewController: UIViewController {
     }
     
     @IBAction func onReply(sender: AnyObject) {
-        
+        TweetUIModel.onReply(self.tweet!, vc: self)
+    }
+    
+    @IBAction func onNavBarReply(sender: AnyObject) {
+        TweetUIModel.onReply(self.tweet!, vc: self)
     }
     
     @IBAction func onRetweet(sender: AnyObject) {
@@ -44,7 +48,6 @@ class TweetDetailsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // TODO:
         retweetImageView.hidden = true
         retweetLabel.text = ""
         
@@ -59,6 +62,8 @@ class TweetDetailsViewController: UIViewController {
             retweetCountLabel.text = "\(tweet.retweetCount)"
             favoriteCountLabel.text = "\(tweet.favoriteCount)"
         }
+        
+        TweetUIModel.setButtons(self.tweet!, retweetButton: retweetButton, favoriteButton: favoriteButton)
     }
     
     @IBAction func onCancel(sender: AnyObject) {
@@ -68,6 +73,14 @@ class TweetDetailsViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        // this vc only goes to reply only
+        let tweet = sender as! Tweet
+        
+        let vc = segue.destinationViewController as! TweetViewController
+        vc.setReply(tweet.user.screenName)
     }
     
 

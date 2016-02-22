@@ -25,12 +25,16 @@ class TimelineDelegate: NSObject, UITableViewDelegate, UITableViewDataSource {
         
         let cell = tableView.dequeueReusableCellWithIdentifier("tweetCell") as! TimelineCell
         if let tweet = tweets?[indexPath.row] {
-            if tweet.retweeted {
-                cell.retweetedLabel.text = "() retweeted"
+            if let name = tweet.retweeterName {
+                cell.retweetedLabel.text = "\(name) retweeted"
+                cell.retweetImageView.hidden = false
+                cell.retweetedLabel.hidden = false
             } else {
                 cell.retweetImageView.hidden = true
                 cell.retweetedLabel.hidden = true
             }
+            cell.retweetImageView.updateConstraints()
+            
             cell.nameLabel.text = tweet.user.name
             cell.screenNameLabel.text = "@\(tweet.user.screenName)"
             cell.tweetLabel.text = tweet.text
@@ -39,6 +43,7 @@ class TimelineDelegate: NSObject, UITableViewDelegate, UITableViewDataSource {
                 NSURL(string: tweet.user.profileImage)!)
             
             cell.tweet = tweet
+            cell.replyDelegate = parentViewController
         }
         
         return cell
