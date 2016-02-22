@@ -35,11 +35,10 @@ class TwitterClient: BDBOAuth1SessionManager {
         get {
             if _currentUser == nil {
                 let data = NSUserDefaults.standardUserDefaults().objectForKey(currentUserKey)
-                NSLog("Loaded data \(data)")
                 if data != nil {
                     do {
                         let dictionary = try NSJSONSerialization.JSONObjectWithData(data! as! NSData as NSData!, options: NSJSONReadingOptions.MutableLeaves) as! NSDictionary
-                        NSLog("Loaded dictionary: \(dictionary)")
+                        NSLog("Loaded user")
                         _currentUser = TwitterUser(fromDictionary: dictionary)
                     } catch {
                         NSLog("Failed to deserialize user JSON")
@@ -113,5 +112,61 @@ class TwitterClient: BDBOAuth1SessionManager {
                 failure: ({ (error: NSError!) -> Void in
                     NSLog("Failed to get access token")
                 }))
+    }
+    
+    func retweet(tweet: Tweet, completion: () -> Void) {
+        let tweetId = tweet.id
+        TwitterClient.sharedInstance.POST("1.1/statuses/retweet/\(tweetId).json", parameters: nil,
+            success: { (operation: NSURLSessionDataTask!, response: AnyObject!) -> Void in
+                
+                NSLog("Retweeted")
+                completion()
+                
+            }, failure: { (operation: NSURLSessionDataTask?, error: NSError) -> Void in
+                
+                NSLog("Failed to retweet \(error)")
+        })
+    }
+    
+    func unRetweet(tweet: Tweet, completion: () -> Void) {
+        let tweetId = tweet.id
+        TwitterClient.sharedInstance.POST("1.1/statuses/unretweets/\(tweetId).json", parameters: nil,
+            success: { (operation: NSURLSessionDataTask!, response: AnyObject!) -> Void in
+                
+                NSLog("Unretweeted")
+                completion()
+                
+            }, failure: { (operation: NSURLSessionDataTask?, error: NSError) -> Void in
+                
+                NSLog("Failed to unretweet \(error)")
+        })
+    }
+    
+    func favorite(tweet: Tweet, completion: () -> Void) {
+        let params = NSDictionary(dictionary: [ "id": "\(tweet.id)" ])
+        TwitterClient.sharedInstance.POST("1.1/favorites/create.json", parameters: params,
+            success: { (operation: NSURLSessionDataTask!, response: AnyObject!) -> Void in
+                
+                NSLog("Favorited")
+                completion()
+                
+            }, failure: { (operation: NSURLSessionDataTask?, error: NSError) -> Void in
+                
+                NSLog("Failed to favorite \(error)")
+        })
+    }
+    
+    func unFavorite(tweet: Tweet, completion: () -> Void) {
+        let params = NSDictionary(dictionary: [ "id": "\(tweet.id)" ])
+        TwitterClient.sharedInstance.POST("1.1/favorites/destroy.json", parameters: params,
+            success: { (operation: NSURLSessionDataTask!, response: AnyObject!) -> Void in
+                
+                NSLog("Unfavorited")
+                completion()
+                
+            }, failure: { (operation: NSURLSessionDataTask?, error: NSError) -> Void in
+                
+                NSLog("Failed to unfavorite \(error)")
+        })
     }
 }

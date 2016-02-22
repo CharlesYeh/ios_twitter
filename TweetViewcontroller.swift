@@ -10,8 +10,6 @@ import UIKit
 
 class TweetViewController: UIViewController {
     
-    var user: TwitterUser?
-    
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var screenNameLabel: UILabel!
     @IBOutlet weak var profileImageView: UIImageView!
@@ -20,12 +18,30 @@ class TweetViewController: UIViewController {
     @IBOutlet weak var textLabel: UITextView!
     
     override func viewDidLoad() {
-        nameLabel.text = user!.name
-        screenNameLabel.text = user!.screenName
-        profileImageView.setImageWithURL(NSURL(string: user!.profileImage)!)
+        if let user = TwitterClient.currentUser {
+            nameLabel.text = user.name
+            screenNameLabel.text = user.screenName
+            profileImageView.setImageWithURL(NSURL(string: user.profileImage)!)
+        }
     }
     
-    func user(user: TwitterUser) {
-        self.user = user
+    @IBAction func onTweetClick(sender: AnyObject) {
+        
+        let params = NSDictionary(dictionary: ["status" : textLabel.text])
+        
+        TwitterClient.sharedInstance.POST("1.1/statuses/update.json", parameters: params,
+            success: { (operation: NSURLSessionDataTask!, response: AnyObject!) -> Void in
+            
+                NSLog("Tweeted")
+            }, failure: { (operation: NSURLSessionDataTask?, error: NSError) -> Void in
+                
+                NSLog("Failed to tweet \(error)")
+        })
+
+        self.navigationController?.popViewControllerAnimated(true)
+    }
+    
+    @IBAction func onCancel(sender: AnyObject) {
+        self.navigationController?.popViewControllerAnimated(true)
     }
 }

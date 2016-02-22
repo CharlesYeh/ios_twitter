@@ -8,8 +8,11 @@
 
 import UIKit
 
-struct Tweet {
+class Tweet {
+    var id: String
     var retweeted: Bool
+    var favorited: Bool
+    
     var text: String
     var createdAt: NSDate?
     var retweetCount: Int
@@ -20,7 +23,10 @@ struct Tweet {
     init(fromAPIResponse response: AnyObject) {
         let tweet = response as! NSDictionary
         
+        id = "\(tweet["id"]!)"
         retweeted = tweet["retweeted"] as! Bool
+        favorited = tweet["favorited"] as! Bool
+        
         text = tweet["text"] as! String
         
         let formatter = NSDateFormatter()
@@ -35,5 +41,13 @@ struct Tweet {
         
         user = TwitterUser(fromAPIResponse: tweet["user"]!)
         
+    }
+    
+    func setRetweet(r: Bool) {
+        retweeted = r
+    }
+    
+    func setFavorite(r: Bool) {
+        favorited = r
     }
 }

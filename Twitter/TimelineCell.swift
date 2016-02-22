@@ -23,9 +23,21 @@ class TimelineCell: UITableViewCell {
     @IBOutlet weak var retweetImageView: UIImageView!
     @IBOutlet weak var retweetedLabel: UILabel!
     
+    @IBOutlet weak var replyButton: UIButton!
+    @IBOutlet weak var retweetButton: UIButton!
+    @IBOutlet weak var favoriteButton: UIButton!
     
-    @IBOutlet weak var replyButtonView: UIImageView!
-    @IBOutlet weak var retweetButtonView: UIImageView!
-    @IBOutlet weak var likeButtonView: UIImageView!
+    var tweet: Tweet?
     
+    @IBAction func onReply(sender: AnyObject) {
+        
+    }
+    
+    @IBAction func onRetweet(sender: AnyObject) {
+        
+    }
+    
+    @IBAction func onFavorite(sender: AnyObject) {
+        
+    }
 }

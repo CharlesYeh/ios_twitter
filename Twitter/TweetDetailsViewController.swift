@@ -22,8 +22,23 @@ class TweetDetailsViewController: UIViewController {
     @IBOutlet weak var retweetCountLabel: UILabel!
     @IBOutlet weak var favoriteCountLabel: UILabel!
     
+    @IBOutlet weak var retweetButton: UIButton!
+    @IBOutlet weak var favoriteButton: UIButton!
+    
     func setTweet(tweet: Tweet) {
         self.tweet = tweet
+    }
+    
+    @IBAction func onReply(sender: AnyObject) {
+        
+    }
+    
+    @IBAction func onRetweet(sender: AnyObject) {
+        TweetUIModel.onRetweet(sender, tweet: self.tweet!, button: self.retweetButton)
+    }
+    
+    @IBAction func onFavorite(sender: AnyObject) {
+        TweetUIModel.onFavorite(sender, tweet: self.tweet!, button: self.favoriteButton)
     }
     
     override func viewDidLoad() {
@@ -47,7 +62,7 @@ class TweetDetailsViewController: UIViewController {
     }
     
     @IBAction func onCancel(sender: AnyObject) {
-        dismissViewControllerAnimated(true, completion: nil)
+        self.navigationController?.popViewControllerAnimated(true)
     }
     
     override func didReceiveMemoryWarning() {

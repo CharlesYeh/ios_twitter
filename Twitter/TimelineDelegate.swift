@@ -17,6 +17,10 @@ class TimelineDelegate: NSObject, UITableViewDelegate, UITableViewDataSource {
         parentViewController = vc
     }
     
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        tableView.deselectRowAtIndexPath(indexPath, animated: false)
+    }
+    
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCellWithIdentifier("tweetCell") as! TimelineCell
@@ -34,13 +38,7 @@ class TimelineDelegate: NSObject, UITableViewDelegate, UITableViewDataSource {
             cell.profileImageView.setImageWithURL(
                 NSURL(string: tweet.user.profileImage)!)
             
-            cell.replyButtonView.tag = indexPath.row
-            cell.retweetButtonView.tag = indexPath.row
-            cell.likeButtonView.tag = indexPath.row
-            
-            cell.replyButtonView.addGestureRecognizer(UITapGestureRecognizer(target: parentViewController, action: "onReplyButton:"))
-            cell.retweetButtonView.addGestureRecognizer(UITapGestureRecognizer(target: parentViewController, action: "onRetweetButton:"))
-            cell.likeButtonView.addGestureRecognizer(UITapGestureRecognizer(target: parentViewController, action: "onLikeButton:"))
+            cell.tweet = tweet
         }
         
         return cell

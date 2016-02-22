@@ -16,9 +16,6 @@ class TimelineViewController: UIViewController {
     // UI models
     var timelineDelegate: TimelineDelegate?
     
-    // models
-    var user: TwitterUser?
-    
     @IBAction func onSignOutClick(sender: AnyObject) {
         signOut()
     }
@@ -26,10 +23,6 @@ class TimelineViewController: UIViewController {
     func signOut() {
         TwitterClient.currentUser = nil
         self.navigationController?.popViewControllerAnimated(true)
-    }
-    
-    func user(apiResponse: AnyObject) {
-        self.user = TwitterUser(fromAPIResponse: apiResponse)
     }
     
     func loadData(refreshControl: UIRefreshControl? = nil) {
@@ -46,13 +39,11 @@ class TimelineViewController: UIViewController {
                 }
                 
                 if let refreshControl = refreshControl {
-                    dispatch_async(dispatch_get_main_queue(), {
-                        refreshControl.endEditing(true)
-                    })
+                    refreshControl.endRefreshing()
                 }
                 
             }, failure: { (operation: NSURLSessionDataTask?, error: NSError) -> Void in
-                NSLog("Failed to get current user")
+                NSLog("Failed to get current user \(error)")
         })
     }
     
@@ -63,7 +54,7 @@ class TimelineViewController: UIViewController {
         timelineTableView.delegate = timelineDelegate
         timelineTableView.dataSource = timelineDelegate
         
-        timelineTableView.estimatedRowHeight = 200
+        timelineTableView.estimatedRowHeight = 100
         timelineTableView.rowHeight = UITableViewAutomaticDimension
         
         let refreshControl = UIRefreshControl()
@@ -75,18 +66,6 @@ class TimelineViewController: UIViewController {
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-    }
-
-    func onReplyButton(gesture: UIGestureRecognizer) {
-        performSegueWithIdentifier("replySegue", sender: gesture.view!)
-    }
-    
-    func onRetweetButton(gesture: UIGestureRecognizer) {
-        performSegueWithIdentifier("retweetSegue", sender: gesture.view!)
-    }
-    
-    func onLikeButton(gesture: UIGestureRecognizer) {
-        // TODO: like
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -103,16 +82,6 @@ class TimelineViewController: UIViewController {
                 
             } else if segueIdentifier == "tweetSegue" {
                 // new tweet
-                let vc = segue.destinationViewController as! TweetViewController
-                vc.user(user!)
-            } else if segueIdentifier == "replySegue" {
-                let vc = segue.destinationViewController as! TweetViewController
-                vc.user(user!)
-                // TODO: reply stuff
-            } else if segueIdentifier == "retweetSegue" {
-                let vc = segue.destinationViewController as! TweetViewController
-                vc.user(user!)
-                // TODO: retweet stuff
             }
         }
     }
