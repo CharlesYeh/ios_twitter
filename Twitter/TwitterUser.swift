@@ -11,11 +11,18 @@ import UIKit
 struct TwitterUser {
     var name: String, screenName: String, profileImage: String
     
+    var dictionary: NSDictionary
+    
     init(fromAPIResponse response: AnyObject) {
         let user = response as! NSDictionary
+        self.init(fromDictionary: user)
+    }
+    
+    init(fromDictionary data: NSDictionary) {
+        name = data["name"] as! String
+        screenName = data["screen_name"] as! String
+        profileImage = data["profile_image_url"] as! String
         
-        name = user["name"] as! String
-        screenName = user["screen_name"] as! String
-        profileImage = user["profile_image_url"] as! String
+        dictionary = data
     }
 }

@@ -9,8 +9,6 @@
 import UIKit
 
 class TimelineViewController: UIViewController {
-
-    var tweets: [Tweet] = []
     
     // UI
     @IBOutlet weak var timelineTableView: UITableView!
@@ -23,12 +21,11 @@ class TimelineViewController: UIViewController {
     
     @IBAction func onSignOutClick(sender: AnyObject) {
         signOut()
-        
     }
     
     func signOut() {
-        // TODO: sign out
-        dismissViewControllerAnimated(true, completion: nil)
+        TwitterClient.currentUser = nil
+        self.navigationController?.popViewControllerAnimated(true)
     }
     
     func user(apiResponse: AnyObject) {
@@ -36,7 +33,7 @@ class TimelineViewController: UIViewController {
     }
     
     func loadData(refreshControl: UIRefreshControl? = nil) {
-        TwitterClient.sharedInstance.GET("1.1/statuses/home_timeline.json", parameters: nil,
+        TwitterClient.sharedInstance.GET("1.1/statuses/home_timeline.json?count=20", parameters: nil,
             success: { (operation: NSURLSessionDataTask!, response: AnyObject!) -> Void in
                 
                 NSLog("Loaded tweets")
@@ -95,7 +92,17 @@ class TimelineViewController: UIViewController {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         
         if let segueIdentifier = segue.identifier {
-            if segueIdentifier == "tweetSegue" {
+            if segueIdentifier == "detailSegue" {
+                // view tweet details
+                let cell = sender as! TimelineCell
+                let indexPath = timelineTableView.indexPathForCell(cell)
+                
+                let vc = segue.destinationViewController as! TweetDetailsViewController
+                
+                vc.setTweet(timelineDelegate!.tweets![indexPath!.row])
+                
+            } else if segueIdentifier == "tweetSegue" {
+                // new tweet
                 let vc = segue.destinationViewController as! TweetViewController
                 vc.user(user!)
             } else if segueIdentifier == "replySegue" {

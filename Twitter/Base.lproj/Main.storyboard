@@ -20,8 +20,8 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NGp-qa-Ey2">
-                                <rect key="frame" x="241.5" y="285" width="117" height="30"/>
-                                <state key="normal" title="Login with OAuth"/>
+                                <rect key="frame" x="239.5" y="285" width="122" height="30"/>
+                                <state key="normal" title="Login with Twitter"/>
                                 <connections>
                                     <action selector="onLogin:" destination="zud-Wj-N1M" eventType="touchUpInside" id="t9c-Hh-plp"/>
                                 </connections>
@@ -34,6 +34,9 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="lA3-pX-k5t"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="show" identifier="loginSegue" id="ee5-DF-hg8"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3HL-RB-xXh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -329,6 +332,7 @@
                                             <outlet property="retweetedLabel" destination="QSx-ev-oJb" id="ZKm-sW-V4R"/>
                                             <outlet property="screenNameLabel" destination="Ruh-cE-kh5" id="6W2-oS-cAp"/>
                                             <outlet property="tweetLabel" destination="NnU-Em-0Xc" id="yeH-yf-Ddy"/>
+                                            <segue destination="eJL-5v-ZuI" kind="show" identifier="detailSegue" id="HNO-ci-d1T"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -373,8 +377,6 @@
                     </navigationItem>
                     <connections>
                         <outlet property="timelineTableView" destination="CaN-Bk-LP8" id="TkS-b3-VOS"/>
-                        <segue destination="zwA-Qd-Ckt" kind="show" identifier="replySegue" id="ucT-Ab-RLT"/>
-                        <segue destination="zwA-Qd-Ckt" kind="show" identifier="retweetSegue" id="Sw9-qU-E4Y"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -384,7 +386,7 @@
         <!--Tweet-->
         <scene sceneID="bxc-1e-x79">
             <objects>
-                <viewController id="eJL-5v-ZuI" sceneMemberID="viewController">
+                <viewController id="eJL-5v-ZuI" customClass="TweetDetailsViewController" customModule="Twitter" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="8WI-iK-Vl9"/>
                         <viewControllerLayoutGuide type="bottom" id="sge-SF-WFv"/>
@@ -568,6 +570,9 @@
                                 <rect key="frame" x="20" y="7" width="133" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Cancel"/>
+                                <connections>
+                                    <action selector="onCancel:" destination="eJL-5v-ZuI" eventType="touchUpInside" id="DGB-Ls-hr6"/>
+                                </connections>
                             </button>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" style="plain" id="iFr-FL-wMY">
@@ -578,6 +583,17 @@
                             </button>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="dateLabel" destination="REi-qK-y6X" id="UP6-8w-6mH"/>
+                        <outlet property="favoriteCountLabel" destination="Te8-uE-bLH" id="lTj-md-Tzo"/>
+                        <outlet property="nameLabel" destination="izJ-s5-5bU" id="ssO-4N-06r"/>
+                        <outlet property="profileImageView" destination="K9G-Fo-0MS" id="zCT-gw-1wH"/>
+                        <outlet property="retweetCountLabel" destination="dFL-kw-juD" id="vAp-GR-7LL"/>
+                        <outlet property="retweetImageView" destination="PGn-tH-7ar" id="OvF-R5-vXK"/>
+                        <outlet property="retweetLabel" destination="13T-mx-h0j" id="aV7-Xl-0P8"/>
+                        <outlet property="screenNameLabel" destination="KAE-Ms-JiM" id="GsI-3A-GxX"/>
+                        <outlet property="tweetLabel" destination="hVL-Hx-kYv" id="FWD-vW-AoJ"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dQT-ft-4H2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -613,6 +629,7 @@
                     <nil name="viewControllers"/>
                     <connections>
                         <segue destination="zud-Wj-N1M" kind="relationship" relationship="rootViewController" id="B71-BZ-cFm"/>
+                        <segue destination="rsS-k7-iiL" kind="show" identifier="ncLoginSegue" id="M2z-as-imC"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cYB-TG-9aL" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -662,6 +679,8 @@
         <image name="retweet-action" width="75" height="72"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="eJx-or-o5t"/>
+        <segue reference="0h4-RQ-GND"/>
+        <segue reference="ee5-DF-hg8"/>
+        <segue reference="HNO-ci-d1T"/>
     </inferredMetricsTieBreakers>
 </document>

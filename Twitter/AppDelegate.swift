@@ -14,9 +14,18 @@ import AFNetworking
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
+    let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+        
+        if TwitterClient.currentUser != nil {
+            
+            let vc = storyboard.instantiateViewControllerWithIdentifier("tweetTimeline")
+            
+            let nc = window?.rootViewController as! UINavigationController
+            nc.pushViewController(vc, animated: false)
+            
+        }
         // Override point for customization after application launch.
         return true
     }
@@ -44,32 +53,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(app: UIApplication, openURL url: NSURL, options: [String : AnyObject]) -> Bool {
-        TwitterClient
-            .sharedInstance
-            .fetchAccessTokenWithPath(
-                "oauth/access_token",
-                method: "POST",
-                requestToken: BDBOAuth1Credential(queryString: url.query),
-                success: ({ (accessToken: BDBOAuth1Credential!) -> Void in
-                    TwitterClient.sharedInstance.requestSerializer.saveAccessToken(accessToken)
-                    TwitterClient.sharedInstance.GET("1.1/account/verify_credentials.json", parameters: nil,
-                        success: { (operation: NSURLSessionDataTask!, response: AnyObject!) -> Void in
-                            
-                            NSLog("Loaded user")
-                            let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
-                            let nc = mainStoryboard.instantiateViewControllerWithIdentifier("timelineNavController") as! UINavigationController
-                            let vc = nc.topViewController as! TimelineViewController
-                            
-                            vc.user(response)
-                            
-                            self.window?.rootViewController?.presentViewController(nc, animated: true, completion: nil)
-                        }, failure: { (operation: NSURLSessionDataTask?, error: NSError) -> Void in
-                            NSLog("Failed to get current user")
-                        })
-                }),
-                failure: ({ (error: NSError!) -> Void in
-                    NSLog("Failed to get access token")
-                }))
+        TwitterClient.sharedInstance.openURL(url)
         return true
     }
 

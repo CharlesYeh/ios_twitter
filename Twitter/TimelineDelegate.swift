@@ -17,11 +17,6 @@ class TimelineDelegate: NSObject, UITableViewDelegate, UITableViewDataSource {
         parentViewController = vc
     }
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        
-        parentViewController?.performSegueWithIdentifier("tweetDetail", sender: indexPath)
-    }
-    
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCellWithIdentifier("tweetCell") as! TimelineCell

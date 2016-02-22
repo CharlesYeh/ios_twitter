@@ -12,6 +12,8 @@ struct Tweet {
     var retweeted: Bool
     var text: String
     var createdAt: NSDate?
+    var retweetCount: Int
+    var favoriteCount: Int
     
     var user: TwitterUser
     
@@ -22,12 +24,14 @@ struct Tweet {
         text = tweet["text"] as! String
         
         let formatter = NSDateFormatter()
-        formatter.locale = NSLocale(localeIdentifier: "en_US_POSIX")
-        formatter.dateFormat = "MM-dd HH:mm:ss zzz yyyy"
+        formatter.dateFormat = "EEE MMM d HH:mm:ss Z yyyy"
         
         let createdAtString = tweet["created_at"]! as! String
         createdAt = formatter.dateFromString(
             createdAtString)
+        
+        retweetCount = tweet["retweet_count"] as! Int
+        favoriteCount = tweet["favorite_count"] as! Int
         
         user = TwitterUser(fromAPIResponse: tweet["user"]!)
         
