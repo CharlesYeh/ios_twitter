@@ -37,6 +37,10 @@ class TweetViewController: UIViewController {
         replyName = screenName
     }
     
+    func onProfileClick(sender: AnyObject) {
+        
+    }
+    
     @IBAction func onTweetClick(sender: AnyObject) {
         
         let params = NSDictionary(dictionary: ["status" : textLabel.text])

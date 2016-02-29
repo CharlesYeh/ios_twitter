@@ -12,9 +12,9 @@ import BDBOAuth1Manager
 class LoginViewController: UIViewController {
     @IBAction func onLogin(sender: AnyObject) {
         TwitterClient.sharedInstance.loginWithCompletion { (user, error) -> Void in
-            
             if user != nil {
-                self.performSegueWithIdentifier("loginSegue", sender: self)
+                // just logged in
+                self.presentViewController(TweetUIModel.loginSegue(), animated: false, completion: nil)
             } else {
                 // TODO: error
             }

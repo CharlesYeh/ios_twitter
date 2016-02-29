@@ -9,7 +9,8 @@
 import UIKit
 
 struct TwitterUser {
-    var name: String, screenName: String, profileImage: String
+    var name: String, screenName: String, backgroundImage: String, profileImage: String
+    var followersCount: Int, statusesCount: Int, friendsCount: Int
     
     var dictionary: NSDictionary
     
@@ -19,9 +20,15 @@ struct TwitterUser {
     }
     
     init(fromDictionary data: NSDictionary) {
+        
         name = data["name"] as! String
         screenName = data["screen_name"] as! String
+        backgroundImage = data["profile_background_image_url"] as! String
         profileImage = data["profile_image_url"] as! String
+        
+        followersCount = data["followers_count"] as! Int
+        statusesCount = data["statuses_count"] as! Int
+        friendsCount = data["friends_count"] as! Int
         
         dictionary = data
     }

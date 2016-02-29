@@ -29,6 +29,10 @@ class TweetDetailsViewController: UIViewController {
         self.tweet = tweet
     }
     
+    @IBAction func onProfileTap(sender: UIGestureRecognizer) {
+        performSegueWithIdentifier("profileSegue", sender: self)
+    }
+    
     @IBAction func onReply(sender: AnyObject) {
         TweetUIModel.onReply(self.tweet!, vc: self)
     }
@@ -50,6 +54,8 @@ class TweetDetailsViewController: UIViewController {
         
         retweetImageView.hidden = true
         retweetLabel.text = ""
+        
+        profileImageView.userInteractionEnabled = true
         
         if let tweet = tweet {
             profileImageView.setImageWithURL(NSURL(string: tweet.user.profileImage)!)
@@ -76,13 +82,17 @@ class TweetDetailsViewController: UIViewController {
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // this vc only goes to reply only
-        let tweet = sender as! Tweet
         
-        let vc = segue.destinationViewController as! TweetViewController
-        vc.setReply(tweet.user.screenName)
+        if segue.identifier == "replySegue" {
+            let tweet = sender as! Tweet
+        
+            let vc = segue.destinationViewController as! TweetViewController
+            vc.setReply(tweet.user.screenName)
+        } else if segue.identifier == "profileSegue" {
+            let vc = segue.destinationViewController as! ProfileViewController
+            vc.user = tweet!.user
+        }
     }
-    
 
     /*
     // MARK: - Navigation

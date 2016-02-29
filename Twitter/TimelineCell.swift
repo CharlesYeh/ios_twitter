@@ -17,7 +17,6 @@ class TimelineCell: UITableViewCell {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var screenNameLabel: UILabel!
     @IBOutlet weak var tweetLabel: UILabel!
-    @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var dateLabel: UILabel!
     
     @IBOutlet weak var retweetImageView: UIImageView!
@@ -26,6 +25,10 @@ class TimelineCell: UITableViewCell {
     @IBOutlet weak var replyButton: UIButton!
     @IBOutlet weak var retweetButton: UIButton!
     @IBOutlet weak var favoriteButton: UIButton!
+    
+    @IBOutlet weak var profileImage: UIImageView!
+    
+    var tapGesture: UIGestureRecognizer?
     
     var tweetModel: Tweet?
     var tweet: Tweet? {

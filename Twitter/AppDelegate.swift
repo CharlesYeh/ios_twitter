@@ -14,19 +14,14 @@ import AFNetworking
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
         if TwitterClient.currentUser != nil {
-            
-            let vc = storyboard.instantiateViewControllerWithIdentifier("tweetTimeline")
-            
-            let nc = window?.rootViewController as! UINavigationController
-            nc.pushViewController(vc, animated: false)
-            
+            // automatic login for previous logins
+            window!.makeKeyAndVisible()
+            window!.rootViewController?.presentViewController(TweetUIModel.loginSegue(), animated: false, completion: nil)
         }
-        // Override point for customization after application launch.
         return true
     }
 

@@ -10,8 +10,17 @@ import UIKit
 
 class TweetUIModel: NSObject {
     class func onReply(tweet: Tweet, vc: UIViewController) {
-        
         vc.performSegueWithIdentifier("replySegue", sender: tweet)
+    }
+    
+    class func loginSegue() -> UIViewController {
+        let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let hamburgerNC = storyboard.instantiateViewControllerWithIdentifier("HamburgerViewController") as! HamburgerViewController
+        let menuVC = storyboard.instantiateViewControllerWithIdentifier("MenuViewController") as! MenuViewController
+        
+        hamburgerNC.menuViewController = menuVC
+        
+        return hamburgerNC
     }
     
     class func setButtons(tweet: Tweet, retweetButton: UIButton, favoriteButton: UIButton) {

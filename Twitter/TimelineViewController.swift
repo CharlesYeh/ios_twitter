@@ -15,6 +15,15 @@ class TimelineViewController: UIViewController {
     
     // UI models
     var timelineDelegate: TimelineDelegate?
+    var hamburgerViewController: HamburgerViewController?
+    var endpoint: String = "home_timeline" {
+        didSet(newValue) {
+            if newValue != "user_timeline" {
+                endpointParams = nil
+            }
+        }
+    }
+    var endpointParams: NSDictionary?
     
     @IBAction func onSignOutClick(sender: AnyObject) {
         signOut()
@@ -22,40 +31,29 @@ class TimelineViewController: UIViewController {
     
     func signOut() {
         TwitterClient.currentUser = nil
-        self.navigationController?.popViewControllerAnimated(true)
+        // in hamburger content view
+        
+        hamburgerViewController!
+            .dismissViewControllerAnimated(false, completion: nil)
+    }
+    
+    func onProfileTap(sender: UIGestureRecognizer) {
+        
+        let cell = sender.view!.superview?.superview as! TimelineCell
+        performSegueWithIdentifier("profileSegue", sender: cell.tweet as? AnyObject)
     }
     
     func loadData(refreshControl: UIRefreshControl? = nil) {
-        TwitterClient.sharedInstance.GET("1.1/statuses/home_timeline.json?count=20", parameters: nil,
-            success: { (operation: NSURLSessionDataTask!, response: AnyObject!) -> Void in
-                
-                NSLog("Loaded tweets")
-                if let tweets = response as? NSArray {
-                    let convertedTweets = tweets.map({ (tweet) -> Tweet in
-                        Tweet(fromAPIResponse: tweet)
-                    })
-                    self.timelineDelegate!.tweets = convertedTweets
-                    self.timelineTableView.reloadData()
-                }
-                
-                if let refreshControl = refreshControl {
-                    refreshControl.endRefreshing()
-                }
-                
-            }, failure: { (operation: NSURLSessionDataTask?, error: NSError) -> Void in
-                NSLog("Failed to get current user \(error)")
-        })
+        if timelineDelegate != nil {
+            TwitterClient.getTweets(endpoint, params: endpointParams, timelineDelegate: timelineDelegate!, timelineTableView: timelineTableView, refreshControl: refreshControl, completion: nil)
+        }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         timelineDelegate = TimelineDelegate(vc: self)
-        timelineTableView.delegate = timelineDelegate
-        timelineTableView.dataSource = timelineDelegate
-        
-        timelineTableView.estimatedRowHeight = 100
-        timelineTableView.rowHeight = UITableViewAutomaticDimension
+        timelineDelegate!.initTableView(timelineTableView)
         
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: "loadData:", forControlEvents: UIControlEvents.ValueChanged)
@@ -85,9 +83,11 @@ class TimelineViewController: UIViewController {
             } else if segueIdentifier == "replySegue" {
                 let tweet = sender as! Tweet
                 
-                NSLog("\(segue.destinationViewController)")
                 let vc = segue.destinationViewController as! TweetViewController
                 vc.setReply(tweet.user.screenName)
+            } else if segueIdentifier == "profileSegue" {
+                let vc = segue.destinationViewController as! ProfileViewController
+                vc.user = (sender as! Tweet).user
             }
         }
     }

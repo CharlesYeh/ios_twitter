@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AFNetworking
 
 class TimelineDelegate: NSObject, UITableViewDelegate, UITableViewDataSource {
     
@@ -15,6 +16,14 @@ class TimelineDelegate: NSObject, UITableViewDelegate, UITableViewDataSource {
     
     init(vc: UIViewController) {
         parentViewController = vc
+    }
+    
+    func initTableView(timelineTableView: UITableView) {
+        timelineTableView.delegate = self
+        timelineTableView.dataSource = self
+        
+        timelineTableView.estimatedRowHeight = 100
+        timelineTableView.rowHeight = UITableViewAutomaticDimension
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
@@ -32,18 +41,29 @@ class TimelineDelegate: NSObject, UITableViewDelegate, UITableViewDataSource {
             } else {
                 cell.retweetImageView.hidden = true
                 cell.retweetedLabel.hidden = true
+                cell.retweetImageView.addConstraint(NSLayoutConstraint(item: cell.retweetImageView, attribute: NSLayoutAttribute.Height, relatedBy: NSLayoutRelation.Equal, toItem: nil, attribute: NSLayoutAttribute.NotAnAttribute, multiplier: 0, constant: 0))
             }
+            
             cell.retweetImageView.updateConstraints()
             
             cell.nameLabel.text = tweet.user.name
             cell.screenNameLabel.text = "@\(tweet.user.screenName)"
             cell.tweetLabel.text = tweet.text
             
-            cell.profileImageView.setImageWithURL(
-                NSURL(string: tweet.user.profileImage)!)
+            let profileImage = NSURL(string: tweet.user.profileImage)!
+            
+            cell.profileImage.setImageWithURL(profileImage)
             
             cell.tweet = tweet
             cell.replyDelegate = parentViewController
+            
+            if cell.tapGesture == nil {
+                let gr = UITapGestureRecognizer(target: parentViewController, action: "onProfileTap:")
+                
+                cell.profileImage.userInteractionEnabled = true
+                cell.profileImage.addGestureRecognizer(gr)
+                cell.tapGesture = gr
+            }
         }
         
         return cell

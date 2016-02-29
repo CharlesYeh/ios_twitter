@@ -169,4 +169,27 @@ class TwitterClient: BDBOAuth1SessionManager {
                 NSLog("Failed to unfavorite \(error)")
         })
     }
+    
+    class func getTweets(endpoint: String, params: NSDictionary?, timelineDelegate: TimelineDelegate, timelineTableView: UITableView, refreshControl: UIRefreshControl?, completion: (() -> Void)?) {
+        TwitterClient.sharedInstance.GET("1.1/statuses/\(endpoint).json?count=20", parameters: params,
+            success: { (operation: NSURLSessionDataTask!, response: AnyObject!) -> Void in
+                
+                NSLog("Loaded tweets")
+                if let tweets = response as? NSArray {
+                    let convertedTweets = tweets.map({ (tweet) -> Tweet in
+                        Tweet(fromAPIResponse: tweet)
+                    })
+                    timelineDelegate.tweets = convertedTweets
+                    timelineTableView.reloadData()
+                }
+                
+                if let refreshControl = refreshControl {
+                    refreshControl.endRefreshing()
+                }
+                
+                completion?()
+            }, failure: { (operation: NSURLSessionDataTask?, error: NSError) -> Void in
+                NSLog("Failed to get current user \(error)")
+        })
+    }
 }
